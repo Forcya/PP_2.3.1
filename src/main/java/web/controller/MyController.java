@@ -32,10 +32,6 @@ public class MyController {
     @RequestMapping(value = "/cars")
     public String deleteEmployee(@RequestParam(value = "count",defaultValue = "5") int carsNumber, Model model) {
 
-        if (carsNumber == 0) {
-            carsNumber = 5;
-        }
-
         List<Car> upgradeCarsList = carService.getNumberOfCars(getCars(),carsNumber);
         model.addAttribute("listCars", upgradeCarsList);
 
