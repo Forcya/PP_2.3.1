@@ -1,0 +1,36 @@
+
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>Loop</title>
+<!--    <style>-->
+
+<!--        table th, table td {padding: 25px;}-->
+<!--        .row  {-->
+<!--            font-style: italic;-->
+<!--        }-->
+<!--        .even-row {-->
+<!--            color: black;-->
+<!--        }-->
+<!--    </style>-->
+</head>
+<body>
+<font size="5" face="Courier New" >
+<h2>List auto</h2>
+<table border="1">
+    <tr>
+        <th>Brand</th>
+        <th>Model</th>
+        <th>Body</th>
+    </tr>
+    <tr th:each="cars, state : ${listCars}"
+        class="row" th:classappend="${state.odd} ? 'odd-row' : 'even-row'">
+
+        <td th:utext="${cars.brand}">Brand</td>
+        <td th:utext="${cars.model}">Model</td>
+        <td th:utext="${cars.body}">Body</td>
+    </tr>
+</table>
+</body>
+</html>
