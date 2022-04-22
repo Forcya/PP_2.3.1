@@ -3,38 +3,57 @@ package web.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import web.entity.Car;
-import web.service.CarService;
+import org.springframework.web.bind.annotation.*;
+import web.entity.User;
+import web.service.UserService;
 
-import java.util.ArrayList;
-import java.util.List;
+
 
 @Controller
+@RequestMapping("/users")
 public class MyController {
 
     @Autowired
-    private CarService carService;
+    private UserService userService;  //Чтобы не создавать объект используем Di
 
+    @GetMapping
+    public String showAllUsers(Model model) {
 
-    public List<Car> getCars () {
-        List<Car> cars = new ArrayList<>();
-        cars.add(new Car("BMW", "M5", "sedan"));
-        cars.add(new Car("BMW", "X5M", "SUV"));
-        cars.add(new Car("MB", "A-class", "hatchback"));
-        cars.add(new Car("Skoda", "Octavia", "liftback"));
-        cars.add(new Car("Audi", "RS5", "coupe"));
-        return cars;
+        model.addAttribute("allUsr", userService.getAllUsers());
+
+        return "allUsers";
+    }
+
+    @GetMapping("/new")
+    public String addNewUser(@ModelAttribute("user") User user) {
+        return "newUser";
+    }
+
+    @PostMapping
+    public String saveUser(@ModelAttribute("users") User user) {
+        userService.saveUser(user);
+        return "redirect:/users";
+    }
+
+    @GetMapping("/{id}/update")
+    public String updateUser(@PathVariable("id") int id, Model model) {
+        model.addAttribute("user", userService.getUser(id));
+        return "updateUser";
+    }
+
+    @PatchMapping("/{id}")
+    public String update(@ModelAttribute("user") User user) {
+        userService.updateUser(user);
+        return "redirect:/users";
+    }
+
+    @DeleteMapping("/{id}")
+    public String deleteUser(@PathVariable("id") int id) {
+        userService.deleteUser(id);
+        return "redirect:/users";
     }
 
 
-    @RequestMapping(value = "/cars")
-    public String deleteEmployee(@RequestParam(value = "count",defaultValue = "5") int carsNumber, Model model) {
 
-        List<Car> upgradeCarsList = carService.getNumberOfCars(getCars(),carsNumber);
-        model.addAttribute("listCars", upgradeCarsList);
 
-        return "cars";
-    }
 }
