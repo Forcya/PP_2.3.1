@@ -30,7 +30,7 @@ public class MyController {
     }
 
     @PostMapping
-    public String saveUser(@ModelAttribute("users") User user) {
+    public String saveUser(@ModelAttribute("user") User user) {
         userService.saveUser(user);
         return "redirect:/users";
     }
