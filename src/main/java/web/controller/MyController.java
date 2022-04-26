@@ -24,11 +24,6 @@ public class MyController {
         return "allUsers";
     }
 
-    @GetMapping("/new")
-    public String addNewUser(@ModelAttribute("user") User user) {
-        return "newUser";
-    }
-
     @PostMapping
     public String saveUser(@ModelAttribute("user") User user) {
         userService.saveUser(user);
@@ -52,8 +47,4 @@ public class MyController {
         userService.deleteUser(id);
         return "redirect:/users";
     }
-
-
-
-
 }
