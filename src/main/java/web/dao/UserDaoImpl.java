@@ -1,5 +1,6 @@
 package web.dao;
 
+
 import web.entity.User;
 import org.springframework.stereotype.Repository;
 
@@ -16,6 +17,7 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public List<User> getAllUsers() {
+
         List<User> allUser = entityManager.createQuery("from User", User.class).getResultList();
         return allUser;
     }

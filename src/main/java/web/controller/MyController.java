@@ -30,6 +30,11 @@ public class MyController {
         return "redirect:/users";
     }
 
+    @GetMapping("/new")
+    public String addNewUser(@ModelAttribute("user") User user) {
+        return "newUser";
+    }
+
     @GetMapping("/{id}/update")
     public String updateUser(@PathVariable("id") int id, Model model) {
         model.addAttribute("user", userService.getUser(id));
